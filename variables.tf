@@ -19,3 +19,10 @@ variable "limit_cpu" {
 variable "limit_mem" {
   default = "2Gi"
 }
+variable "default_username" {
+  default = "root"
+}
+variable "default_password" {
+  default = "password"
+  sensitive = true
+}

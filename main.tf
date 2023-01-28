@@ -50,7 +50,6 @@ resource "kubernetes_service" "mongodb_replicaset" {
       name = "mongodb"
       port = 27017
     }
-
     selector = {
       app     = "mongodb-replicaset"
       release = var.name
@@ -128,6 +127,14 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
           command = ["sh"]
           args    = ["-c", "set -e\nset -x\n\ncp /configdb-readonly/mongod.conf /data/configdb/mongod.conf\n"]
 
+          env {
+            name = "MONGO_INITDB_ROOT_USERNAME"
+            value = var.default_username
+          }
+          env {
+            name = "MONGO_INITDB_ROOT_PASSWORD"
+            value = var.default_password
+          }
           volume_mount {
             name       = "workdir"
             mount_path = "/work-dir"
