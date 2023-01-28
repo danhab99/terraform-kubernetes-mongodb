@@ -61,6 +61,10 @@ resource "kubernetes_service" "mongodb_replicaset" {
   }
 }
 
+output "service" {
+  value = kubernetes_service.mongodb_replicaset
+}
+
 resource "kubernetes_stateful_set" "mongodb_replicaset" {
   metadata {
     name      = "${var.name}-mongodb-replicaset"
