@@ -231,6 +231,16 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
           command = ["mongod"]
           args    = ["--config=/data/configdb/mongod.conf", "--dbpath=/data/db", "--replSet=rs0", "--port=27017", "--bind_ip=0.0.0.0"]
 
+          env {
+            name = "MONGO_INITDB_ROOT_USERNAME"
+            value = var.default_username
+          }
+
+          env {
+            name = "MONGO_INITDB_ROOT_PASSWORD"
+            value = var.default_password
+          }
+
           port {
             name           = "mongodb"
             container_port = 27017
