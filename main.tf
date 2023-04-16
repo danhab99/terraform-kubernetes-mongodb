@@ -202,6 +202,16 @@ resource "kubernetes_stateful_set" "mongodb_replicaset" {
             value = "900"
           }
 
+          env {
+            name = "ADMIN_USER"
+            value = var.default_username
+          }
+
+          env {
+            name = "ADMIN_PASSWORD"
+            value = var.default_password
+          }
+
           volume_mount {
             name       = "workdir"
             mount_path = "/work-dir"
